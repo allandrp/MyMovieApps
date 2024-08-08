@@ -1,8 +1,9 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
     id("kotlin-parcelize")
     id("kotlin-kapt")
 }
@@ -12,22 +13,28 @@ apply {
 }
 
 android {
-    namespace = "com.alland.mymovieapps"
+    namespace = "com.alland.mymovieapps.core"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.alland.mymovieapps"
         minSdk = 21
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
+        buildConfigField(
+            "String",
+            "TOKEN_API",
+            gradleLocalProperties(rootDir, providers).getProperty("tokenMovieApi").toString()
+        )
+        buildConfigField(
+            "String",
+            "MOVIE_PATH",
+            gradleLocalProperties(rootDir, providers).getProperty("movieApiPath").toString()
+        )
         buildConfigField(
             "String",
             "MOVIE_POSTER_PATH",
             gradleLocalProperties(rootDir, providers).getProperty("imagePath").toString()
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -46,17 +53,29 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures {
+    buildFeatures{
         viewBinding = true
         buildConfig = true
+    }
+    kapt {
+        generateStubs = true
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":core"))
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    //retrofit and okhttp
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+
+    //viewModel and liveData
+    api(libs.androidx.lifecycle.viewmodel.ktx)
+    api(libs.androidx.lifecycle.livedata.ktx)
+
+    //room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 }

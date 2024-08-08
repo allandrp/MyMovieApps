@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="coming_soon_text">Coming Soon</string>
+    <string name="now_showing_text">Now Showing</string>
+</resources>
