@@ -80,7 +80,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp)
 
-    //viewModel and liveData
     api(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.androidx.lifecycle.livedata.ktx)
 
