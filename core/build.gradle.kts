@@ -21,17 +21,17 @@ android {
         buildConfigField(
             "String",
             "TOKEN_API",
-            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMTkwNWJlNDI3MTdiNzg5YjM2NDE3N2MyMDMwMmFlYyIsIm5iZiI6MTcyMjY1MDU5Ni4xMjkzODQsInN1YiI6IjYzNmM2YjJlZjE0ZGFkMDBmMjczOTkwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pOBjGrGeRE9Hn7yD5-8teXi8Hqa1i0-UOwtmICu4J6o"
+            "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMTkwNWJlNDI3MTdiNzg5YjM2NDE3N2MyMDMwMmFlYyIsIm5iZiI6MTcyMjY1MDU5Ni4xMjkzODQsInN1YiI6IjYzNmM2YjJlZjE0ZGFkMDBmMjczOTkwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pOBjGrGeRE9Hn7yD5-8teXi8Hqa1i0-UOwtmICu4J6o\""
         )
         buildConfigField(
             "String",
             "MOVIE_PATH",
-            "https://api.themoviedb.org/3/movie/"
+            "\"https://api.themoviedb.org/3/movie/\""
         )
         buildConfigField(
             "String",
             "MOVIE_POSTER_PATH",
-            "https://image.tmdb.org/t/p/original/"
+            "\"https://image.tmdb.org/t/p/original/\""
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp)
 
+    //coroutine
     api(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.androidx.lifecycle.livedata.ktx)
 
