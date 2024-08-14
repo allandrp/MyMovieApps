@@ -27,7 +27,7 @@ android {
         buildConfigField(
             "String",
             "MOVIE_POSTER_PATH",
-            gradleLocalProperties(rootDir, providers).getProperty("imagePath").toString()
+            "\"https://image.tmdb.org/t/p/original/\""
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -35,7 +35,6 @@ class DetailActivity : AppCompatActivity() {
         toolbarSetup()
 
         if (movieReceived != null) {
-//            Toast.makeText(this, movieReceived.title, Toast.LENGTH_SHORT).show()
             viewModel.getDetailMovie(movieReceived.id).observe(this) { result ->
 
                 when (result) {
