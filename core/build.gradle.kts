@@ -21,17 +21,17 @@ android {
         buildConfigField(
             "String",
             "TOKEN_API",
-            gradleLocalProperties(rootDir, providers).getProperty("tokenMovieApi").toString()
+            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMTkwNWJlNDI3MTdiNzg5YjM2NDE3N2MyMDMwMmFlYyIsIm5iZiI6MTcyMjY1MDU5Ni4xMjkzODQsInN1YiI6IjYzNmM2YjJlZjE0ZGFkMDBmMjczOTkwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pOBjGrGeRE9Hn7yD5-8teXi8Hqa1i0-UOwtmICu4J6o"
         )
         buildConfigField(
             "String",
             "MOVIE_PATH",
-            gradleLocalProperties(rootDir, providers).getProperty("movieApiPath").toString()
+            "https://api.themoviedb.org/3/movie/"
         )
         buildConfigField(
             "String",
             "MOVIE_POSTER_PATH",
-            gradleLocalProperties(rootDir, providers).getProperty("imagePath").toString()
+            "https://image.tmdb.org/t/p/original/"
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
