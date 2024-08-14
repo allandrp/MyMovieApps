@@ -34,17 +34,27 @@ android {
             gradleLocalProperties(rootDir, providers).getProperty("imagePath").toString()
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -73,6 +83,9 @@ dependencies {
     //viewModel and liveData
     api(libs.androidx.lifecycle.viewmodel.ktx)
     api(libs.androidx.lifecycle.livedata.ktx)
+
+    implementation (libs.android.database.sqlcipher)
+    implementation (libs.androidx.sqlite.ktx)
 
     //room
     implementation(libs.androidx.room.runtime)

@@ -59,6 +59,7 @@ class DetailActivity : AppCompatActivity() {
 
                     is Result.Error -> {
                         Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
+                        Log.d("Abstrak Error", result.message)
                     }
 
                     is Result.Loading -> {

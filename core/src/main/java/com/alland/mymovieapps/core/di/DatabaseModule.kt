@@ -6,17 +6,21 @@ import com.alland.mymovieapps.core.data.local.room.MovieDao
 import com.alland.mymovieapps.core.data.local.room.MovieDatabase
 import dagger.Module
 import dagger.Provides
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 
 @Module
 class DatabaseModule {
     @Provides
     fun provideDatabase(context: Context): MovieDatabase {
+        val passPhrase: ByteArray = SQLiteDatabase.getBytes("password".toCharArray())
+        val factory = SupportFactory(passPhrase)
         return Room.databaseBuilder(context, MovieDatabase::class.java, "movie.db")
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration().openHelperFactory(factory).build()
     }
 
     @Provides
-    fun provideMovieDao(database: MovieDatabase): MovieDao{
+    fun provideMovieDao(database: MovieDatabase): MovieDao {
         return database.movieDao()
     }
 }
