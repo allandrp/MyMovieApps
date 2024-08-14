@@ -3,8 +3,8 @@ package com.alland.mymovieapps.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.alland.mymovieapps.core.ui.ViewModelFactory
+import com.alland.mymovieapps.ui.detail.DetailViewModel
 import com.alland.mymovieapps.ui.home.HomeViewModel
-import com.alland.mymovieapps.ui.upcoming.UpcomingViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,8 +19,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(UpcomingViewModel::class)
-    abstract fun provideUpcomingViewModel(upcomingViewModel: UpcomingViewModel): ViewModel
+    @ViewModelKey(DetailViewModel::class)
+    abstract fun provideDetailViewModel(upcomingViewModel: DetailViewModel): ViewModel
 
     @Binds
     abstract fun provideViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory

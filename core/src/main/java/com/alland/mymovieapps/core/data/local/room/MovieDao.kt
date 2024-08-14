@@ -22,4 +22,10 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie ORDER BY id ASC")
     fun getAllMovies(): Flow<List<MovieEntity>>
+
+    @Query("SELECT * FROM movie WHERE isFavourite = 1 ORDER BY id ASC")
+    fun getFavouriteMovies(): Flow<List<MovieEntity>>
+
+    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND isFavourite = 1)")
+    fun isMovieFavourite(id: Int): Flow<Boolean>
 }

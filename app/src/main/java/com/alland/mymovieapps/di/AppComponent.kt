@@ -1,9 +1,9 @@
 package com.alland.mymovieapps.di
 
 import com.alland.mymovieapps.core.di.CoreComponent
-import com.alland.mymovieapps.ui.MainActivity
-import com.alland.mymovieapps.ui.home.HomeFragment
-import com.alland.mymovieapps.ui.upcoming.UpcomingFragment
+import com.alland.mymovieapps.core.domain.MovieUseCase
+import com.alland.mymovieapps.ui.detail.DetailActivity
+import com.alland.mymovieapps.ui.home.MainActivity
 import dagger.Component
 
 @AppScope
@@ -19,7 +19,6 @@ interface AppComponent {
     }
 
     fun inject(mainActivity: MainActivity)
-    fun inject(homeFragment: HomeFragment)
-    fun inject(upcomingFragment: UpcomingFragment)
-
+    fun inject(detailActivity: DetailActivity)
+    fun provideMovieUseCase(): MovieUseCase
 }

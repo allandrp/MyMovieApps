@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="synopsis_placeholder">Synopsis</string>
+    <string name="poster_movie_placeholder">Poster Movie</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="favourite_button_placeholder">favourite button</string>
 </resources>
