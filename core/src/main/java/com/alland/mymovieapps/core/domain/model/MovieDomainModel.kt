@@ -7,5 +7,6 @@ data class MovieDomainModel(
     var releaseDate: String,
     var synopsis: String,
     var imagePath: String,
-    var backdropPath: String
+    var backdropPath: String,
+    var isFavourite: Boolean
 )

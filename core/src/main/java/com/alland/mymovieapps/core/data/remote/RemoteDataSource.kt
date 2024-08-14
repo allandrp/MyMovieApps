@@ -2,6 +2,7 @@ package com.alland.mymovieapps.core.data.remote
 
 import android.util.Log
 import com.alland.mymovieapps.core.data.remote.response.MovieApiResponse
+import com.alland.mymovieapps.core.data.remote.response.MovieDetailApiResponse
 import com.alland.mymovieapps.core.data.remote.response.ResultsItem
 import com.alland.mymovieapps.core.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -26,18 +27,19 @@ class RemoteDataSource @Inject constructor(private val apiService: MovieApiServi
         emit(ApiResponse.Error(e.message ?: "Unknown Error"))
     }.flowOn(Dispatchers.IO)
 
-    fun getUpcomingMovies(): Flow<ApiResponse<List<ResultsItem?>>> = flow {
-        val response = apiService.getUpcomingMovies().results
+    fun getDetailMovie(movieId: Int): Flow<ApiResponse<MovieDetailApiResponse>> = flow {
+        val response = apiService.getMovieDetail(movieId)
 
-        if (response.isEmpty()) {
-            emit(ApiResponse.Empty)
-        } else {
+        if (response != null) {
             emit(ApiResponse.Success(response))
+        } else {
+            emit(ApiResponse.Empty)
         }
 
     }.catch { e ->
         emit(ApiResponse.Error(e.message ?: "Unknown Error"))
     }.flowOn(Dispatchers.IO)
+
 
     companion object {
         private const val TAG = "RemoteDataSource"

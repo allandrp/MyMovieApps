@@ -1,60 +1,45 @@
 package com.alland.mymovieapps.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alland.mymovieapps.MyApplication
-import com.alland.mymovieapps.R
 import com.alland.mymovieapps.core.ui.adapter.MovieAdapter
 import com.alland.mymovieapps.core.utils.Result
-import com.alland.mymovieapps.databinding.FragmentHomeBinding
-import com.alland.mymovieapps.detail.DetailActivity
+import com.alland.mymovieapps.databinding.ActivityMainBinding
+import com.alland.mymovieapps.ui.detail.DetailActivity
 import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieAdapter
 
     @Inject
     lateinit var viewModel: HomeViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        viewModel.getNowShowingMovies().observe(viewLifecycleOwner){ result ->
+        viewModel.getNowShowingMovies().observe(this){ result ->
             when(result){
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
                     adapter = MovieAdapter(result.data as ArrayList){ data->
-                        val intent = Intent(requireContext(), DetailActivity::class.java)
+                        val intent = Intent(this, DetailActivity::class.java)
                         intent.putExtra("movie", data)
                         startActivity(intent)
                     }
 
-                    val layoutManager = LinearLayoutManager(requireContext())
+                    val layoutManager = LinearLayoutManager(this)
                     layoutManager.orientation = LinearLayoutManager.VERTICAL
                     binding.rvMovieNowShowing.adapter = adapter
                     binding.rvMovieNowShowing.layoutManager = layoutManager
@@ -62,7 +47,7 @@ class HomeFragment : Fragment() {
 
                 Result.Empty -> {
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
                 }
                 is Result.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -75,5 +60,11 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
+        binding.favouriteButtonHome.setOnClickListener{
+            val intent = Intent(this, Class.forName("com.alland.mymovieapps.favourite.ui.FavouriteActivity"))
+            startActivity(intent)
+        }
+
     }
 }

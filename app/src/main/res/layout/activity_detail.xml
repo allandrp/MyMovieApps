@@ -7,24 +7,41 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-
         android:layout_width="match_parent"
-        android:layout_height="192dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="@style/Widget.Material3.CollapsingToolbar.Medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:layout_height="100dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleCollapseMode="scale"
+            app:expandedTitleGravity="center|bottom"
+            app:collapsedTitleTextColor="@color/black"
+            android:background="@color/colorBackground"
             app:toolbarId="@+id/toolbar">
 
-
-            <ImageView
-                android:id="@+id/poster_movie_detail"
-                android:scaleType="centerCrop"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar2"
+                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="?android:actionBarSize"
+                app:title="Movie Title"
+                app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:background="@color/colorBackground"
+                android:theme="?attr/actionBarTheme" >
+
+
+                <ImageView
+                    android:id="@+id/favourite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_favorite_border_24"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    />
+        </com.google.android.material.appbar.MaterialToolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,27 +53,42 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground">
+
+            <ImageView
+                android:id="@+id/poster_movie_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/poster_movie_placeholder"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <RatingBar
                 android:id="@+id/ratingBar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:progressTint="#FFA407"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/year_movie_detail"
                 app:layout_constraintTop_toBottomOf="@+id/year_movie_detail" />
 
             <TextView
                 android:id="@+id/title_movie_detail"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/poster_movie_detail"
+                app:layout_constraintStart_toStartOf="@id/poster_movie_detail"
+                app:layout_constraintTop_toBottomOf="@id/poster_movie_detail"
                 tools:text="Toy Story 4" />
 
             <TextView
@@ -74,11 +106,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="@string/synopsis_placeholder"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/title_movie_detail"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-                android:text="@string/synopsis_placeholder" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
             <TextView
                 android:id="@+id/sinopsis_description_detail"

@@ -1,8 +1,12 @@
 package com.alland.mymovieapps.core.utils
 
 import com.alland.mymovieapps.core.data.local.room.MovieEntity
+import com.alland.mymovieapps.core.data.remote.response.GenresItem
 import com.alland.mymovieapps.core.data.remote.response.MovieApiResponse
+import com.alland.mymovieapps.core.data.remote.response.MovieDetailApiResponse
 import com.alland.mymovieapps.core.data.remote.response.ResultsItem
+import com.alland.mymovieapps.core.domain.model.GenreDomainModel
+import com.alland.mymovieapps.core.domain.model.MovieDetailDomainModel
 import com.alland.mymovieapps.core.domain.model.MovieDomainModel
 import com.alland.mymovieapps.core.ui.model.MoviePresenterModel
 import java.text.SimpleDateFormat
@@ -18,7 +22,8 @@ object Utils {
             releaseDate = data.releaseDate,
             synopsis = data.synopsis,
             imagePath = data.imagePath,
-            backdropPath = data.backdropPath
+            backdropPath = data.backdropPath,
+            isFavourite = data.isFavourite
         )
     }
 
@@ -30,7 +35,8 @@ object Utils {
             releaseDate = data.releaseDate,
             synopsis = data.synopsis,
             imagePath = data.imagePath,
-            backdropPath = data.backdropPath
+            backdropPath = data.backdropPath,
+            isFavourite = data.isFavourite
         )
     }
 
@@ -57,7 +63,8 @@ object Utils {
                 releaseDate = it.releaseDate,
                 synopsis = it.synopsis,
                 imagePath = it.imagePath,
-                backdropPath = it.backdropPath
+                backdropPath = it.backdropPath,
+                isFavourite = it.isFavourite ?: false
             )
         }
     }
@@ -70,20 +77,36 @@ object Utils {
             releaseDate = data.releaseDate,
             synopsis = data.synopsis,
             imagePath = data.imagePath,
-            backdropPath = data.backdropPath
+            backdropPath = data.backdropPath,
+            isFavourite = data.isFavourite
+        )
+    }
 
+    fun mapMovieDetailResponseToMovieDetailDomain(data: MovieDetailApiResponse): MovieDetailDomainModel {
+        return MovieDetailDomainModel(
+            id = data.id,
+            title = data.title,
+            rating = data.voteAverage.toFloat(),
+            releaseDate = data.releaseDate,
+            synopsis = data.overview,
+            listGenres = data.genres.map { mapGenreResponseToGenreModel(it) },
+            posterPath = data.posterPath
+        )
+    }
+
+    fun mapGenreResponseToGenreModel(data: GenresItem): GenreDomainModel {
+        return GenreDomainModel(
+            id = data.id,
+            name = data.name,
         )
     }
 
     fun formatDate(originalDate: String): String {
-        // Define the original and desired date formats
         val originalFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val desiredFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
 
-        // Parse the original date string to a Date object
         val date = originalFormat.parse(originalDate)
 
-        // Convert the Date object to the desired format
         return desiredFormat.format(date)
     }
 }

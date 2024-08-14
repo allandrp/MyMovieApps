@@ -1,11 +1,15 @@
 package com.alland.mymovieapps.core.domain
 
+import com.alland.mymovieapps.core.data.local.room.MovieEntity
+import com.alland.mymovieapps.core.domain.model.MovieDetailDomainModel
 import com.alland.mymovieapps.core.domain.model.MovieDomainModel
 import com.alland.mymovieapps.core.utils.Result
 import kotlinx.coroutines.flow.Flow
 
 interface IMovieRepository {
     fun getNowPlayingMovies(): Flow<Result<List<MovieDomainModel>>>
-    fun getUpcomingMovies(): Flow<Result<List<MovieDomainModel>>>
-//    fun setFavouriteMovie(movie: MovieDomainModel, state: Boolean)
+    fun getFavouriteMovies(): Flow<List<MovieDomainModel>>
+    fun getDetailMovie(id: Int): Flow<Result<MovieDetailDomainModel>>
+    fun isMovieFavourite(id: Int): Flow<Boolean>
+    suspend fun updateMovieData(movie: MovieEntity)
 }
