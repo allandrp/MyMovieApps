@@ -1,5 +1,6 @@
 package com.alland.mymovieapps.favourite.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import com.alland.mymovieapps.MyApplication
 import com.alland.mymovieapps.core.ui.adapter.MovieAdapter
 import com.alland.mymovieapps.favourite.databinding.ActivityFavouriteBinding
 import com.alland.mymovieapps.favourite.di.DaggerFavouriteComponent
+import com.alland.mymovieapps.ui.detail.DetailActivity
 import javax.inject.Inject
 
 class FavouriteActivity : AppCompatActivity() {
@@ -24,8 +26,12 @@ class FavouriteActivity : AppCompatActivity() {
         binding = ActivityFavouriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getFavouriteMovies().observe(this){
-            adapter = MovieAdapter(it as ArrayList){}
+        viewModel.getFavouriteMovies().observe(this) {
+            adapter = MovieAdapter(it as ArrayList) { data ->
+                val intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("movie", data)
+                startActivity(intent)
+            }
             val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
             binding.rvFavourite.layoutManager = layoutManager
